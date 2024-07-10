@@ -1,0 +1,10 @@
+<div *ngIf="rate">
+  <h2>FX Rate</h2>
+  <p>Base: {{ base }}</p>
+  <p>Counter: {{ counter }}</p>
+  <p>Rate: {{ rate.rate }}</p>
+  <p>Date: {{ rate.date }}</p>
+</div>
+<div *ngIf="!rate">
+  <p>Loading...</p>
+</div>
