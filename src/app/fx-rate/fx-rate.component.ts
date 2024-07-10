@@ -18,21 +18,20 @@ import { FormsModule } from '@angular/forms';
 export class FxRateComponent implements OnInit {
   date: string = new Date().toISOString().split('T')[0];
   amount: number = 100;
-  base = 'EUR';
-  counter = 'USD';
+  base = 'USD';
+  counter = 'EUR';
   rate: any;
   convertedAmount: number | null = null;
   loading: boolean = false;
-  currencies: string[] = ['EUR', 'USD'];
+  error: string | null = null;
 
   constructor(private fxRateService: FxRateService) { }
 
-  ngOnInit(): void {
-    this.getRate();
-  }
+  ngOnInit(): void {}
 
   getRate(): void {
     this.loading = true;
+    this.error = null;
     this.fxRateService.getFxRate(this.base, this.counter, this.date, this.amount).subscribe({
       next: (data) => {
         this.rate = data;
@@ -41,6 +40,7 @@ export class FxRateComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error fetching FX rate:', error);
+        this.error = 'Failed to fetch FX rate. Please try again.';
         this.loading = false;
       }
     });

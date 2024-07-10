@@ -9,12 +9,12 @@
 
     <label for="base">From:</label>
     <select id="base" [(ngModel)]="base" name="base">
-      <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+      <option value="EUR">EUR</option>
     </select>
 
     <label for="counter">To:</label>
     <select id="counter" [(ngModel)]="counter" name="counter">
-      <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+      <option value="USD">USD</option>
     </select>
 
     <button type="submit">Convert</button>
@@ -33,7 +33,10 @@
   <div *ngIf="!rate && loading">
     <p>Loading...</p>
   </div>
-  <div *ngIf="!rate && !loading">
-    <p>No data available.</p>
+  <div *ngIf="error">
+    <p>{{ error }}</p>
+  </div>
+  <div *ngIf="!rate && !loading && !error">
+    <p>Press convert to get data</p>
   </div>
 </div>
