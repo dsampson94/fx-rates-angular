@@ -1,10 +1,39 @@
-<div *ngIf="rate">
-  <h2>FX Rate</h2>
-  <p>Base: {{ base }}</p>
-  <p>Counter: {{ counter }}</p>
-  <p>Rate: {{ rate.rate }}</p>
-  <p>Date: {{ rate.date }}</p>
-</div>
-<div *ngIf="!rate">
-  <p>Loading...</p>
+<div class="container">
+  <h1>FxConvert</h1>
+  <form (ngSubmit)="onSubmit()">
+    <label for="date">Date:</label>
+    <input type="date" id="date" [(ngModel)]="date" name="date">
+
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" [(ngModel)]="amount" name="amount">
+
+    <label for="base">From:</label>
+    <select id="base" [(ngModel)]="base" name="base">
+      <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+    </select>
+
+    <label for="counter">To:</label>
+    <select id="counter" [(ngModel)]="counter" name="counter">
+      <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+    </select>
+
+    <button type="submit">Convert</button>
+  </form>
+
+  <div *ngIf="rate" class="result-container">
+    <h2>FX Rate</h2>
+    <p>Base: {{ base }}</p>
+    <p>Counter: {{ counter }}</p>
+    <p>Rate: {{ rate.rate }}</p>
+    <div class="converted-amount">
+      <p>Date: {{ rate.date }}</p>
+      <p><strong>Converted Amount: {{ convertedAmount | number:'1.2-2' }}</strong></p>
+    </div>
+  </div>
+  <div *ngIf="!rate && loading">
+    <p>Loading...</p>
+  </div>
+  <div *ngIf="!rate && !loading">
+    <p>No data available.</p>
+  </div>
 </div>

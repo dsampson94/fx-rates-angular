@@ -10,7 +10,7 @@ export class FxRateService {
 
   constructor(private http: HttpClient) { }
 
-  getFxRate(base: string, counter: string): Observable<any> {
+  getFxRate(base: string, counter: string, date: string, amount: number): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*'
@@ -18,7 +18,9 @@ export class FxRateService {
 
     const params = new HttpParams()
       .set('base', base)
-      .set('counter', counter);
+      .set('counter', counter)
+      .set('date', date)
+      .set('amount', amount.toString());
 
     return this.http.get<any>(`${this.apiUrl}/fxrate`, { headers, params });
   }
