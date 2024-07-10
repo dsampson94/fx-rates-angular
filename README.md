@@ -31,7 +31,7 @@ Make sure you have the following installed on your local machine:
 1. Clone the repository:
 
        git clone https://github.com/dsampson94/fx-rates-angular.git
-       cd bike-list
+       cd fx-rates-angular
 
 2. Install the dependencies:
 
