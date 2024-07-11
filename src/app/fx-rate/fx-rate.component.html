@@ -1,5 +1,22 @@
 <div class="container">
   <h1>FxConvert</h1>
+
+  <div class="result-row" *ngIf="rate">
+    <div class="converted-amount">
+      <p><strong>Converted Amount: {{ convertedAmount | number:'1.2-2' }}</strong></p>
+    </div>
+
+    <div class="result-container">
+      <h2>Stored Rate</h2>
+      <p>Base: {{ base }}</p>
+      <p>Counter: {{ counter }}</p>
+      <p>Rate: {{ rate.rate }}</p>
+      <div class="rate-date">
+        <p>Date: {{ rate.date }}</p>
+      </div>
+    </div>
+  </div>
+
   <form (ngSubmit)="onSubmit()">
     <label for="date">Date:</label>
     <input type="date" id="date" [(ngModel)]="date" name="date">
@@ -20,20 +37,11 @@
     <button type="submit">Convert</button>
   </form>
 
-  <div *ngIf="rate" class="result-container">
-    <h2>FX Rate</h2>
-    <p>Base: {{ base }}</p>
-    <p>Counter: {{ counter }}</p>
-    <p>Rate: {{ rate.rate }}</p>
-    <div class="converted-amount">
-      <p>Date: {{ rate.date }}</p>
-      <p><strong>Converted Amount: {{ convertedAmount | number:'1.2-2' }}</strong></p>
-    </div>
-  </div>
   <div *ngIf="!rate && loading">
     <p>Loading...</p>
   </div>
   <div *ngIf="error">
+    <p>{{ error }}</p>
   </div>
   <div *ngIf="!rate && !loading && !error">
     <p>Press convert to get data</p>

@@ -47,13 +47,38 @@ p {
   margin: 5px 0;
 }
 
-.result-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.converted-amount {
+.result-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 50px 0 50px;
+  font-size: 15px;
+}
+
+.result-container {
+  margin-left: 20px;
+}
+
+.converted-amount {
+  padding: 20px;
+  background-color: white;
+  color: black;
+  border: 1px solid blue;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-radius: 50%;
+  text-align: center;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.converted-amount p {
+  margin: 0;
+}
+
+.rate-date {
+  margin-top: 10px;
 }
