@@ -18,24 +18,26 @@ import { FormsModule } from '@angular/forms';
 export class FxRateComponent implements OnInit {
   date: string = new Date().toISOString().split('T')[0];
   amount: number = 100;
-  base = 'USD';
-  counter = 'EUR';
+  base = 'EUR';
+  counter = 'USD';
   rate: any;
+  fetchedRate: any;
   convertedAmount: number | null = null;
   loading: boolean = false;
   error: string | null = null;
 
   constructor(private fxRateService: FxRateService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.fetchRate();
+  }
 
-  getRate(): void {
+  fetchRate(): void {
     this.loading = true;
     this.error = null;
     this.fxRateService.getFxRate(this.base, this.counter, this.date, this.amount).subscribe({
       next: (data) => {
-        this.rate = data;
-        this.convertedAmount = this.calculateConvertedAmount();
+        this.fetchedRate = data;
         this.loading = false;
       },
       error: (error) => {
@@ -46,11 +48,14 @@ export class FxRateComponent implements OnInit {
     });
   }
 
-  calculateConvertedAmount(): number {
-    return this.amount * this.rate.rate;
+  calculateConvertedAmount(rate: number): number {
+    return this.amount * rate;
   }
 
   onSubmit(): void {
-    this.getRate();
+    if (this.fetchedRate) {
+      this.rate = this.fetchedRate;
+      this.convertedAmount = this.calculateConvertedAmount(this.rate.rate);
+    }
   }
 }

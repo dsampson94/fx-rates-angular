@@ -19,7 +19,6 @@ export class FxRateService {
     const params = new HttpParams()
       .set('base', base)
       .set('counter', counter)
-      .set('date', date)
       .set('amount', amount.toString());
 
     return this.http.get<any>(`${this.apiUrl}/fxrate`, { headers, params });
